@@ -1,13 +1,13 @@
-CC = clang
+CC = cc
 
-CFLAGS = -Wall -Wextra -g3 #-Werror
+CFLAGS = -Wall -Wextra #-Werror
 
 SRCS = main.c \
 		luminous.c
 
-OBJS = $(SRCS:.cpp=.o)
+OBJS = $(SRCS:.c=.o)
 
-HEADERS = lumonius_rgb.h
+HEADERS = lumonius.h
 
 NAME = a.out
 
@@ -16,7 +16,7 @@ all : $(NAME)
 $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-%.o : %.cpp $(HEADERS)
+%.o : %.c $(HEADERS)
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean :
