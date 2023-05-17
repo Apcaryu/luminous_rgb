@@ -6,7 +6,9 @@
 //# include <X11/X.h>
 //# include <fcntl.h>
 //# include <math.h>
+# include <stdlib.h>
 # include "minilibx-linux/mlx.h"
+
 typedef struct s_img
 {
 	void	*mlx_img;
@@ -21,6 +23,7 @@ typedef struct s_data
 	void	*mlx;
 	void	*mlx_window;
 	t_img	mlx_img;
+	int		*color_tab;
 }t_data;
 
 void	init(t_data *data);

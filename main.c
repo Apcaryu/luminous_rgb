@@ -1,6 +1,19 @@
 #include "luminous.h"
 #include "init.h"
 
+int	*color_tab(int win_size_x, t_rgb a_color, t_rgb b_color)
+{
+	int *tab = malloc(sizeof(int) * WIN_X);
+	int x = 0;
+
+	while (x < win_size_x)
+	{
+		tab[x] = rgb_to_int(mix_colors(a_color, b_color, (1.0f / WIN_X) * (float)x));
+		x++;
+	}
+	return tab;
+}
+
 int	render(t_data *data)
 {
 	char	*pix;
@@ -14,7 +27,7 @@ int	render(t_data *data)
 		while (x < WIN_X)
 		{
 			pix = data->mlx_img.addr + (y * data->mlx_img.line_len + x * (data->mlx_img.bpp / 8));
-			*(unsigned int *)pix = 0xFFFFFF;
+			*(unsigned int *)pix = data->color_tab[x];
 			x++;
 		}
 		y++;
@@ -40,6 +53,7 @@ int main(void)
 
 	init(&data);
 	mlx_loop_hook(data.mlx, &render, &data);
+	data.color_tab = color_tab(WIN_X, base_color, actual_color);
 	mlx_loop(data.mlx);
 	return 0;
 }
